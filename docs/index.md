@@ -10,7 +10,7 @@ In these markdown files, you will find the information required to reproduce our
 
 ## Required ability
 - Must be competent with debian, and terminal.
-- Must have some experience with an oscilloscope, or is willing to learn how to use one!
+- Must have some experience with an oscilloscope, or are willing to learn how to use one!
 - Understand how to use a serial terminal.
 
 ## Test procedure
