@@ -162,13 +162,26 @@
 <h3 id="steps-to-reproduce_1">Steps to reproduce<a class="headerlink" href="#steps-to-reproduce_1" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Flash <code>./micropython/microbit-micropython.hex</code> (the full interpretter) onto the microbit.</li>
-<li>Connect a serial terminal to the microbit at 115200 baud.</li>
-<li>Press <code>ctrl + e</code> in your serial terminal to enter paste mode</li>
-<li>Copy and paste <code>./tests/tight-loop/interpeted/tight-loop-test.py</code> into your connected serial terminal.</li>
+<li>Connect minicom (<a href="..#test-procedure">described here</a>)to the microbit at 115200 baud.</li>
+<li>Press <code>ctrl + e</code> in minicom to enter paste mode (<code>&gt;&gt;&gt;</code> should change to <code>===</code>)</li>
+<li>Copy and paste <code>./tests/tight-loop/interpeted/tight-loop-test.py</code> into minicom.</li>
 <li>Press <code>ctrl + d</code> to begin execution</li>
 <li>Set oscilloscope to 50s per division.</li>
 <li>Measure the width of the high pulse.</li>
 </ol>
+<h3 id="test-code">Test code<a class="headerlink" href="#test-code" title="Permanent link">&para;</a></h3>
+<pre><code class="py">while True:
+    pin1.write_digital(0)
+
+    for i in range(0,100000):
+        i = i
+
+    pin1.write_digital(1)
+
+    for i in range(0,100000):
+        i = i
+</code></pre>
+
 <h3 id="where-is-this-result-used_1">Where is this result used?<a class="headerlink" href="#where-is-this-result-used_1" title="Permanent link">&para;</a></h3>
 <p>This result is not used, but will appear in Table 2, where we report the execution speed of each environment compared to MakeCode and Codal for Camera Ready.</p></div>
         </div>

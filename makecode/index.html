@@ -165,6 +165,18 @@
 <li>Drag the file using the files GUI or use the <code>cp</code> command to copy the hex file to the micro:bit</li>
 <li>Use an oscilloscope set to 10us per division and measure the output.</li>
 </ol>
+<h3 id="test-code">Test code<a class="headerlink" href="#test-code" title="Permanent link">&para;</a></h3>
+<pre><code class="ts">function set_gpio(state: number) {
+    pins.digitalWritePin(DigitalPin.P1, state)
+}
+
+while (true) {
+    set_gpio(1);
+    set_gpio(0);
+}
+
+</code></pre>
+
 <h3 id="where-is-this-result-used">Where is this result used?<a class="headerlink" href="#where-is-this-result-used" title="Permanent link">&para;</a></h3>
 <p>In each result where time is reported.</p>
 <h2 id="context-switch-time">Context switch time<a class="headerlink" href="#context-switch-time" title="Permanent link">&para;</a></h2>
@@ -181,6 +193,33 @@
 <li>Use an oscilloscope set to 25us per division and measure the output.</li>
 </ol>
 <p><strong>Do not forget to subtract the time taken to toggle a GPIO from these results.</strong></p>
+<h3 id="test-code_1">Test code<a class="headerlink" href="#test-code_1" title="Permanent link">&para;</a></h3>
+<pre><code class="ts">function set_gpio(state: number) {
+    pins.digitalWritePin(DigitalPin.P1, state)
+}
+
+function high() {
+    while (1) {
+        set_gpio(1);
+        control.spinScheduler();
+    }
+}
+
+function low() {
+    while (1) {
+        set_gpio(0);
+        control.spinScheduler();
+    }
+}
+
+set_gpio(0);
+
+control.inBackground(high)
+control.inBackground(low)
+
+control.releaseFiber();
+</code></pre>
+
 <h3 id="where-is-this-result-used_1">Where is this result used?<a class="headerlink" href="#where-is-this-result-used_1" title="Permanent link">&para;</a></h3>
 <p>Figure 7, where we report context switch time vs. stack size, and Figure 6, where we report the context switch profiles for each device.</p>
 <h2 id="tight-loop-execution-time">Tight loop execution time<a class="headerlink" href="#tight-loop-execution-time" title="Permanent link">&para;</a></h2>
@@ -196,6 +235,23 @@
 <li>Drag the file using the files GUI or use the <code>cp</code> command to copy the hex file to the micro:bit</li>
 <li>Use an oscilloscope set to 25us per division and measure the output.</li>
 </ol>
+<h3 id="test-code_2">Test code<a class="headerlink" href="#test-code_2" title="Permanent link">&para;</a></h3>
+<pre><code class="ts">function set_gpio(state: number) {
+    pins.digitalWritePin(DigitalPin.P1, state)
+}
+
+while (true) {
+    set_gpio(0);
+    for (let i = 0; i &lt; 100000; i++) {
+        i = i;
+    }
+    set_gpio(1);
+    for (let i = 0; i &lt; 100000; i++) {
+        i = i;
+    }
+}
+</code></pre>
+
 <h3 id="where-is-this-result-used_2">Where is this result used?<a class="headerlink" href="#where-is-this-result-used_2" title="Permanent link">&para;</a></h3>
 <p>Table 2, where we report the execution speed of each environment compared to MakeCode and Codal.</p>
 <h2 id="memory-consumption">Memory consumption<a class="headerlink" href="#memory-consumption" title="Permanent link">&para;</a></h2>
@@ -220,8 +276,35 @@
 <li>Copy the contents of <code>root/tests/makecode/gpio-base/context-switch-test.ts</code> into the editor window.</li>
 <li>Hit download to download the compiled program as a hex file.</li>
 <li>Drag the file using the files GUI or use the <code>cp</code> command to copy the hex file to the micro:bit</li>
-<li>In your serial terminal the output should read <code>sd: xxx bufferSize: xx</code>, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.</li>
+<li>In minicom (<a href="..#test-procedure">described here</a>) the output should read <code>sd: xxx bufferSize: xx</code>, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.</li>
 </ol>
+<h3 id="test-code_3">Test code<a class="headerlink" href="#test-code_3" title="Permanent link">&para;</a></h3>
+<pre><code class="ts">function set_gpio(state: number) {
+    pins.digitalWritePin(DigitalPin.P1, state)
+}
+
+function high() {
+    while (1) {
+        set_gpio(1);
+        control.spinScheduler();
+    }
+}
+
+function low() {
+    while (1) {
+        set_gpio(0);
+        control.spinScheduler();
+    }
+}
+
+set_gpio(0);
+
+control.inBackground(high)
+control.inBackground(low)
+
+control.releaseFiber();
+</code></pre>
+
 <h3 id="where-is-this-result-used_4">Where is this result used?<a class="headerlink" href="#where-is-this-result-used_4" title="Permanent link">&para;</a></h3>
 <p>Figure 6, where we show the context switch time per device, broken down by environment. We calculate each segment (Codal, Stack, MakeCode) using the time data gathered in the context switch time test. We then use codal as the benchmark to compute the impact of the stack for each; subtracting codal, and stack page times, gives us the overhead of MakeCode.</p></div>
         </div>

@@ -147,11 +147,15 @@
 <h3 id="steps-to-reproduce">Steps to reproduce<a class="headerlink" href="#steps-to-reproduce" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Flash <code>espruino_1v95_microbit.hex</code> to the microbit.</li>
-<li>Connect a serial terminal to the microbit at 9600 baud.</li>
-<li>Copy and paste <code>./tests/espruino/tight-loop/tight-loop.js</code> into your connected serial terminal.</li>
+<li>Connect minicom (<a href="..#test-procedure">described here</a>) to the microbit at 9600 baud.</li>
+<li>Copy and paste <code>./tests/espruino/tight-loop/tight-loop.js</code> into minicom.</li>
 <li>Set oscilloscope to 25s per division.</li>
 <li>Measure the result.</li>
 </ol>
+<h3 id="test-code">Test code<a class="headerlink" href="#test-code" title="Permanent link">&para;</a></h3>
+<pre><code class="js">while(true){digitalWrite(D1,false); for(var i = 0; i &lt; 100000; i++){i=i;} digitalWrite(D1,true); for(var i = 0; i &lt; 100000; i++){i=i;} }
+</code></pre>
+
 <h3 id="where-is-this-result-used">Where is this result used?<a class="headerlink" href="#where-is-this-result-used" title="Permanent link">&para;</a></h3>
 <p>Table 2, where we report the execution speed of each environment compared to MakeCode and Codal.</p></div>
         </div>

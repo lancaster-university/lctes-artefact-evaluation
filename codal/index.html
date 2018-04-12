@@ -162,6 +162,38 @@
 <li>From <code>./codal</code> copy <code>build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex</code> to the microbit.</li>
 <li>Measure the positive width of the pulse using an oscilloscope, 1us per division.</li>
 </ol>
+<h3 id="test-code">Test code<a class="headerlink" href="#test-code" title="Permanent link">&para;</a></h3>
+<pre><code class="cpp">#include &quot;MicroBit.h&quot;
+
+MicroBit uBit;
+
+void set_gpio(int pin_number, int state)
+{
+    switch(pin_number)
+    {
+        case 0:
+            uBit.io.P0.setDigitalValue(state);
+            break;
+        case 1:
+            uBit.io.P1.setDigitalValue(state);
+            break;
+        case 2:
+            uBit.io.P2.setDigitalValue(state);
+            break;
+    }
+}
+
+int main()
+{
+    uBit.init();
+    while(1)
+    {
+        set_gpio(1,1);
+        set_gpio(1,0);
+    }
+}
+</code></pre>
+
 <h3 id="where-is-this-result-used">Where is this result used?<a class="headerlink" href="#where-is-this-result-used" title="Permanent link">&para;</a></h3>
 <p>In each result where time is reported.</p>
 <h2 id="context-switch-time">Context switch time<a class="headerlink" href="#context-switch-time" title="Permanent link">&para;</a></h2>
@@ -175,6 +207,70 @@
 <li>Measure the positive width of the pulse using an oscilloscope, 1us per division.</li>
 </ol>
 <p><strong>Do not forget to subtract the time taken to toggle a GPIO from these results.</strong></p>
+<h3 id="test-code_1">Test code<a class="headerlink" href="#test-code_1" title="Permanent link">&para;</a></h3>
+<pre><code class="cpp">#include &quot;MicroBit.h&quot;
+
+MicroBit uBit;
+
+#define BUFFER_SIZE 0
+
+void set_gpio(int pin_number, int state)
+{
+    switch(pin_number)
+    {
+        case 0:
+            uBit.io.P0.setDigitalValue(state);
+            break;
+        case 1:
+            uBit.io.P1.setDigitalValue(state);
+            break;
+        case 2:
+            uBit.io.P2.setDigitalValue(state);
+            break;
+    }
+}
+
+void high()
+{
+#if BUFFER_SIZE &gt; 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+
+    while(1)
+    {
+        set_gpio(1,1);
+        schedule();
+    }
+}
+
+void low()
+{
+#if BUFFER_SIZE &gt; 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+    while(1)
+    {
+        set_gpio(1,0);
+        schedule();
+    }
+}
+
+
+int main()
+{
+    uBit.init();
+
+    set_gpio(1,0);
+
+    create_fiber(low);
+    create_fiber(high);
+
+    release_fiber();
+}
+</code></pre>
+
 <h3 id="where-is-this-result-used_1">Where is this result used?<a class="headerlink" href="#where-is-this-result-used_1" title="Permanent link">&para;</a></h3>
 <p>Figure 7, where we report context switch time vs. stack size, and Figure 6, where we report the context switch profiles for each device.</p>
 <h2 id="context-switch-longitudinal-test">Context switch longitudinal test<a class="headerlink" href="#context-switch-longitudinal-test" title="Permanent link">&para;</a></h2>
@@ -189,6 +285,70 @@
 <li>Repeat steps 1 - 4 modifying the <code>BUFFER_SIZE</code> define at the top of the main program in increasing powers of 2.</li>
 </ol>
 <p><strong>Do not forget to subtract the time taken to toggle a GPIO from these results.</strong></p>
+<h3 id="test-code_2">Test code<a class="headerlink" href="#test-code_2" title="Permanent link">&para;</a></h3>
+<pre><code class="cpp">#include &quot;MicroBit.h&quot;
+
+MicroBit uBit;
+
+#define BUFFER_SIZE 0
+
+void set_gpio(int pin_number, int state)
+{
+    switch(pin_number)
+    {
+        case 0:
+            uBit.io.P0.setDigitalValue(state);
+            break;
+        case 1:
+            uBit.io.P1.setDigitalValue(state);
+            break;
+        case 2:
+            uBit.io.P2.setDigitalValue(state);
+            break;
+    }
+}
+
+void high()
+{
+#if BUFFER_SIZE &gt; 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+
+    while(1)
+    {
+        set_gpio(1,1);
+        schedule();
+    }
+}
+
+void low()
+{
+#if BUFFER_SIZE &gt; 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+    while(1)
+    {
+        set_gpio(1,0);
+        schedule();
+    }
+}
+
+
+int main()
+{
+    uBit.init();
+
+    set_gpio(1,0);
+
+    create_fiber(low);
+    create_fiber(high);
+
+    release_fiber();
+}
+</code></pre>
+
 <h3 id="where-is-this-result-used_2">Where is this result used?<a class="headerlink" href="#where-is-this-result-used_2" title="Permanent link">&para;</a></h3>
 <p>Figure 7, where we report context switch time vs. stack size.</p>
 <h2 id="tight-loop-execution-time">Tight loop execution time<a class="headerlink" href="#tight-loop-execution-time" title="Permanent link">&para;</a></h2>
@@ -201,6 +361,52 @@
 <li>From <code>./codal</code> copy <code>build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex</code> to the microbit.</li>
 <li>Measure the positive width of the pulse using an oscilloscope, 100ms per division should be adequate.</li>
 </ol>
+<h3 id="test-code_3">Test code<a class="headerlink" href="#test-code_3" title="Permanent link">&para;</a></h3>
+<pre><code class="cpp">
+#include &quot;MicroBit.h&quot;
+
+MicroBit uBit;
+
+void set_gpio(int pin_number, int state)
+{
+    switch(pin_number)
+    {
+        case 0:
+            uBit.io.P0.setDigitalValue(state);
+            break;
+        case 1:
+            uBit.io.P1.setDigitalValue(state);
+            break;
+        case 2:
+            uBit.io.P2.setDigitalValue(state);
+            break;
+    }
+}
+
+int main()
+{
+    uBit.init();
+
+    set_gpio(1,0);
+
+    while(1)
+    {
+        set_gpio(1,1);
+        for(volatile int i = 0; i &lt; 100000; i++)
+        {
+            i =i;
+        }
+        set_gpio(1,0);
+        for(volatile int i = 0; i &lt; 100000; i++)
+        {
+            i =i;
+        }
+    }
+
+    release_fiber();
+}
+</code></pre>
+
 <h3 id="where-is-this-result-used_3">Where is this result used?<a class="headerlink" href="#where-is-this-result-used_3" title="Permanent link">&para;</a></h3>
 <p>Table 2, where we report the execution speed of each environment compared to MakeCode and Codal.</p>
 <h2 id="context-switch-stack-usage">Context switch stack usage<a class="headerlink" href="#context-switch-stack-usage" title="Permanent link">&para;</a></h2>
@@ -211,8 +417,72 @@
 <li>Copy the contents of <code>tests/codal/gpio-base/ContextSwitchTest.cpp</code> to <code>codal/source/main.cpp</code>.</li>
 <li>Compile the program by running <code>yt clean &amp;&amp; yt build</code> in <code>./codal</code>.</li>
 <li>From <code>./codal</code> copy <code>build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex</code> to the microbit.</li>
-<li>In your serial terminal the output should read <code>sd: xxx bufferSize: xx</code>, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.</li>
+<li>In minicom (<a href="..#test-procedure">described here</a>) the output should read <code>sd: xxx bufferSize: xx</code>, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.</li>
 </ol>
+<h3 id="test-code_4">Test code<a class="headerlink" href="#test-code_4" title="Permanent link">&para;</a></h3>
+<pre><code class="cpp">#include &quot;MicroBit.h&quot;
+
+MicroBit uBit;
+
+#define BUFFER_SIZE 0
+
+void set_gpio(int pin_number, int state)
+{
+    switch(pin_number)
+    {
+        case 0:
+            uBit.io.P0.setDigitalValue(state);
+            break;
+        case 1:
+            uBit.io.P1.setDigitalValue(state);
+            break;
+        case 2:
+            uBit.io.P2.setDigitalValue(state);
+            break;
+    }
+}
+
+void high()
+{
+#if BUFFER_SIZE &gt; 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+
+    while(1)
+    {
+        set_gpio(1,1);
+        schedule();
+    }
+}
+
+void low()
+{
+#if BUFFER_SIZE &gt; 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+    while(1)
+    {
+        set_gpio(1,0);
+        schedule();
+    }
+}
+
+
+int main()
+{
+    uBit.init();
+
+    set_gpio(1,0);
+
+    create_fiber(low);
+    create_fiber(high);
+
+    release_fiber();
+}
+</code></pre>
+
 <h3 id="where-is-this-result-used_4">Where is this result used?<a class="headerlink" href="#where-is-this-result-used_4" title="Permanent link">&para;</a></h3>
 <p>Figure 6, where we show the context switch time per device, broken down by environment. We calculate each segment (Codal, Stack, MakeCode) using the time data gathered in the context switch time test. We then use codal as the benchmark to compute the impact of the stack for each; subtracting codal, and stack page times, gives us the overhead of MakeCode.</p>
 <h2 id="memory-consumption">Memory consumption<a class="headerlink" href="#memory-consumption" title="Permanent link">&para;</a></h2>
