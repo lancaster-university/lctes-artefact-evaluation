@@ -17,10 +17,8 @@ This test is used to determine the time taken to toggle the GPIO. This time is t
 2. Change to the `./makecode/pxt-microbit` directory.
 3. Run `pxt serve` and wait until a web browser opens with a local instance of MakeCode.
 4. Copy the contents of `root/tests/makecode/gpio-base/gpio-base-test.ts` into the editor window.
-5. Hit download, which may do one of two things:
-    - Automatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).
-    - Download a hex file for you to transfer manually to the microbit.
-6. Flash your program manually if required.
+5. Hit download to download the compiled program as a hex file.
+6. Drag the file using the files GUI or use the `cp` command to copy the hex file to the micro:bit
 7. Use an oscilloscope set to 10us per division and measure the output.
 
 ### Where is this result used?
@@ -38,10 +36,8 @@ This test determines the cost of our stack duplication approach with respect to 
 2. Change to the `./makecode/pxt-microbit` directory.
 3. Run `pxt serve` and wait until a web browser opens with a local instance of MakeCode.
 4. Copy the contents of `root/tests/makecode/gpio-base/context-switch-test.ts` into the editor window.
-5. Hit download, which may do one of two things:
-    - Automatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).
-    - Download a hex file for you to transfer manually to the microbit.
-6. Flash your program manually if required.
+5. Hit download to download the compiled program as a hex file.
+6. Drag the file using the files GUI or use the `cp` command to copy the hex file to the micro:bit
 7. Use an oscilloscope set to 25us per division and measure the output.
 
 **Do not forget to subtract the time taken to toggle a GPIO from these results.**
@@ -61,10 +57,8 @@ This test counts from 0 to 100,000, using the higher level language in MakeCode,
 2. Change to the `./makecode/pxt-microbit` directory.
 3. Run `pxt serve` and wait until a web browser opens with a local instance of MakeCode.
 4. Copy the contents of `root/tests/makecode/gpio-base/tight-loop-test.ts` into the editor window.
-5. Hit download, which may do one of two things:
-    - Automatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).
-    - Download a hex file for you to transfer manually to the microbit.
-6. Flash your program manually if required.
+5. Hit download to download the compiled program as a hex file.
+6. Drag the file using the files GUI or use the `cp` command to copy the hex file to the micro:bit
 7. Use an oscilloscope set to 25us per division and measure the output.
 
 ### Where is this result used?
@@ -97,10 +91,8 @@ This test is used to determine the default stack depth in MakeCode, and thus it'
 2. Change to the `./makecode/pxt-microbit` directory.
 3. Run `pxt serve` and wait until a web browser opens with a local instance of MakeCode.
 4. Copy the contents of `root/tests/makecode/gpio-base/context-switch-test.ts` into the editor window.
-5. Hit download, which may do one of two things:
-    - Automatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).
-    - Download a hex file for you to transfer manually to the microbit.
-6. Flash your program manually if required.
+5. Hit download to download the compiled program as a hex file.
+6. Drag the file using the files GUI or use the `cp` command to copy the hex file to the micro:bit
 7. In your serial terminal the output should read `sd: xxx bufferSize: xx`, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.
 
 ### Where is this result used?
