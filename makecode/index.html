@@ -137,6 +137,8 @@
         
             <li><a href="#context-switch-time">Context switch time</a></li>
         
+            <li><a href="#tight-loop-execution-time">Tight loop execution time</a></li>
+        
             <li><a href="#memory-consumption">Memory consumption</a></li>
         
             <li><a href="#context-switch-stack-usage">Context switch stack usage</a></li>
@@ -189,7 +191,7 @@
 <p><strong>Do not forget to subtract the time taken to toggle a GPIO from these results.</strong></p>
 <h3 id="where-is-this-result-used_1">Where is this result used?<a class="headerlink" href="#where-is-this-result-used_1" title="Permanent link">&para;</a></h3>
 <p>Figure 7, where we report context switch time vs. stack size, and Figure 6, where we report the context switch profiles for each device.</p>
-<h3 id="tight-loop-execution-time">Tight loop execution time<a class="headerlink" href="#tight-loop-execution-time" title="Permanent link">&para;</a></h3>
+<h2 id="tight-loop-execution-time">Tight loop execution time<a class="headerlink" href="#tight-loop-execution-time" title="Permanent link">&para;</a></h2>
 <p>This test counts from 0 to 100,000, using the higher level language in MakeCode, TypeScript. After a full iteration, a GPIO is toggled, allowing us to calculate the time using an oscilloscope.</p>
 <h3 id="steps-to-reproduce_2">Steps to reproduce<a class="headerlink" href="#steps-to-reproduce_2" title="Permanent link">&para;</a></h3>
 <ol>
