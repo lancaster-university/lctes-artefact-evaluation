@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+	<title>micropython - MakeCode and Codal</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/extra.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-custom navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            
+                <a class="navbar-brand" style="padding-top:25px; padding-bottom:25px" rel="home" href="..">MakeCode and Codal</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+
+            
+                <li >
+                    <a href="..">Overview</a>
+                </li>
+            
+            
+
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tests <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        
+<li >
+    <a href="../codal/">Codal</a>
+</li>
+
+                    
+                        
+<li >
+    <a href="../espruino/">Espruino</a>
+</li>
+
+                    
+                        
+<li >
+    <a href="../makecode/">MakeCode</a>
+</li>
+
+                    
+                        
+<li class="active">
+    <a href="./">micropython</a>
+</li>
+
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right hidden-md hidden-sm">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                <li >
+                    <a rel="next" href="../makecode/">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a rel="prev" >
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/lancaster-university/lctes-artefact-evaluation">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#testing-micropython">Testing micropython</a></li>
+        
+            <li><a href="#tight-loop-execution-time-byte-code-compiled">Tight loop execution time (byte code compiled)</a></li>
+        
+            <li><a href="#tight-loop-execution-time-fully-interpretted">Tight loop execution time (fully interpretted)</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="testing-micropython">Testing micropython<a class="headerlink" href="#testing-micropython" title="Permanent link">&para;</a></h1>
+<p>The tests we conducted are listed below.</p>
+<h2 id="tight-loop-execution-time-byte-code-compiled">Tight loop execution time (byte code compiled)<a class="headerlink" href="#tight-loop-execution-time-byte-code-compiled" title="Permanent link">&para;</a></h2>
+<p>This test is used to determine the overhead of a bytecode interpretter on the microbit. The test runs a tight spin loop using a python program toggling a gpio every 100,000 increments of a count.</p>
+<p><em>A precompiled hex file (<code>./test/micropython/tight-loop/compiled/microbit-micropython-bytecode-compiled.hex</code>) is provided for convenience.</em></p>
+<h3 id="steps-to-reproduce">Steps to reproduce<a class="headerlink" href="#steps-to-reproduce" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Navigate to the <a href="https://python.microbit.org/v/1">micropython online editor</a></li>
+<li>Copy the contents of <code>./tests/tight-loop/compiled/tight-loop-compiled-test.py</code> into the editor.</li>
+<li>Click download and drag the outputted hex file onto the microbit device.</li>
+<li>Set oscilloscope to 10s per division.</li>
+<li>Measure the width of the high pulse.</li>
+</ol>
+<h3 id="where-is-this-result-used">Where is this result used?<a class="headerlink" href="#where-is-this-result-used" title="Permanent link">&para;</a></h3>
+<p>Table 2, where we report the execution speed of each environment compared to MakeCode and Codal.</p>
+<h2 id="tight-loop-execution-time-fully-interpretted">Tight loop execution time (fully interpretted)<a class="headerlink" href="#tight-loop-execution-time-fully-interpretted" title="Permanent link">&para;</a></h2>
+<p>This test is used to determine the overhead of a full interpretter on the microbit. The test runs a tight spin loop using a python program toggling a gpio every 100,000 increments of a count.</p>
+<h3 id="steps-to-reproduce_1">Steps to reproduce<a class="headerlink" href="#steps-to-reproduce_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Flash <code>./micropython/microbit-micropython.hex</code> (the full interpretter) onto the microbit.</li>
+<li>Connect a serial terminal to the microbit at 115200 baud.</li>
+<li>Press <code>ctrl + e</code> in your serial terminal to enter paste mode</li>
+<li>Copy and paste <code>./tests/tight-loop/interpeted/tight-loop-test.py</code> into your connected serial terminal.</li>
+<li>Press <code>ctrl + d</code> to begin execution</li>
+<li>Set oscilloscope to 50s per division.</li>
+<li>Measure the width of the high pulse.</li>
+</ol>
+<h3 id="where-is-this-result-used_1">Where is this result used?<a class="headerlink" href="#where-is-this-result-used_1" title="Permanent link">&para;</a></h3>
+<p>This result is not used, but will appear in Table 2, where we report the execution speed of each environment compared to MakeCode and Codal for Camera Ready.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            
+            <center><a href="https://www.lancaster.ac.uk"><image style="width:auto;" height="61" src="../img/lancs-logo.png"></image></a></center>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

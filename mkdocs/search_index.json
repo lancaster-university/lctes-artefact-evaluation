@@ -1,0 +1,284 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "MakeCode and Codal: Intuitive and Efficient Embedded Systems Programming for Education\n\n\nIn these markdown files, you will find the information required to reproduce our results gathered for the paper using the micro:bit.\n\n\nPhysical requirements\n\n\n\n\nMust have a micro:bit\n\n\nMust have a copy of our debian virtual machine with testing environment.\n\n\nMust have an oscilloscope available.\n\n\n\n\nRequired ability\n\n\n\n\nMust be competent with debian, and terminal.\n\n\nMust have some experience with an oscilloscope, or is willing to learn how to use one!\n\n\nUnderstand how to use a serial terminal.\n\n\n\n\nTest procedure\n\n\nThe root directory is arranged in the following form:\n\n\n\n\ncodal\n contains the codal build environment which you will use to conduct codal tests.\n\n\ndocs\n contains the documentation for tests and this overview document.\n\n\nespruino\n contains the espruino interpretter used when testing espruino.\n\n\nmakecode\n contains a modified copy of the executable web editor that can be run locally.\n\n\ntests\n contains all of the tests, grouped by each environment, their use is described in the \ndocs\n folder. e.g. \ndocs/codal.md\n describes all tests that are contained in \ntests/codal/*\n.\n\n\n\n\nTests either use a serial terminal to validate output, or use an oscilloscope to measure waveforms, in either case the setup pictured below should be adequate for both tests:\n\n\n\n\nThe micro:bit is connected to a PC over USB (top of the micro:bit), which also exposes a serial port for a PC to connect to for serial output from the micro:bit. The scope has one probe lead connected to channel one, this probe lead connects to the micro:bit's ground pin (far right of the micro:bit), and samples pin P1 (yellow cable connected to the micro:bit). All tests use pin P1, so no reconfiguration of this setup will be required.\n\n\nFor information on how to use an oscilloscope we recommend this \nsparkfun tutorial\n.\n\n\nReproducibility\n\n\nThere are various factors which could affect the accuracy of the results we report in the paper:\n\n\n\n\nToolchains used to build programs\n\n\nOscilloscope quality\n\n\nCalibration of the Oscilloscope\n\n\n\n\nIn reproducing these results ourselves we have noted small variations of +/- 30 microseconds, as we have updated our own toolchains.\n\n\nWhat is a micro:bit?\n\n\nThe \nmicro:bit\n is a small embedded computer designed for computer science education, MakeCode and Codal were initially designed for the micro:bit, evolving and supporting other devices over time.\n\n\nWhy only the micro:bit?\n\n\nAs testing a large number of devices is complex, especially in a distributed artifact evaluation format, it was agreed that we would provide the micro:bit which is representative of the results in the paper.", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/#makecode-and-codal-intuitive-and-efficient-embedded-systems-programming-for-education", 
+            "text": "In these markdown files, you will find the information required to reproduce our results gathered for the paper using the micro:bit.", 
+            "title": "MakeCode and Codal: Intuitive and Efficient Embedded Systems Programming for Education"
+        }, 
+        {
+            "location": "/#physical-requirements", 
+            "text": "Must have a micro:bit  Must have a copy of our debian virtual machine with testing environment.  Must have an oscilloscope available.", 
+            "title": "Physical requirements"
+        }, 
+        {
+            "location": "/#required-ability", 
+            "text": "Must be competent with debian, and terminal.  Must have some experience with an oscilloscope, or is willing to learn how to use one!  Understand how to use a serial terminal.", 
+            "title": "Required ability"
+        }, 
+        {
+            "location": "/#test-procedure", 
+            "text": "The root directory is arranged in the following form:   codal  contains the codal build environment which you will use to conduct codal tests.  docs  contains the documentation for tests and this overview document.  espruino  contains the espruino interpretter used when testing espruino.  makecode  contains a modified copy of the executable web editor that can be run locally.  tests  contains all of the tests, grouped by each environment, their use is described in the  docs  folder. e.g.  docs/codal.md  describes all tests that are contained in  tests/codal/* .   Tests either use a serial terminal to validate output, or use an oscilloscope to measure waveforms, in either case the setup pictured below should be adequate for both tests:   The micro:bit is connected to a PC over USB (top of the micro:bit), which also exposes a serial port for a PC to connect to for serial output from the micro:bit. The scope has one probe lead connected to channel one, this probe lead connects to the micro:bit's ground pin (far right of the micro:bit), and samples pin P1 (yellow cable connected to the micro:bit). All tests use pin P1, so no reconfiguration of this setup will be required.  For information on how to use an oscilloscope we recommend this  sparkfun tutorial .", 
+            "title": "Test procedure"
+        }, 
+        {
+            "location": "/#reproducibility", 
+            "text": "There are various factors which could affect the accuracy of the results we report in the paper:   Toolchains used to build programs  Oscilloscope quality  Calibration of the Oscilloscope   In reproducing these results ourselves we have noted small variations of +/- 30 microseconds, as we have updated our own toolchains.", 
+            "title": "Reproducibility"
+        }, 
+        {
+            "location": "/#what-is-a-microbit", 
+            "text": "The  micro:bit  is a small embedded computer designed for computer science education, MakeCode and Codal were initially designed for the micro:bit, evolving and supporting other devices over time.", 
+            "title": "What is a micro:bit?"
+        }, 
+        {
+            "location": "/#why-only-the-microbit", 
+            "text": "As testing a large number of devices is complex, especially in a distributed artifact evaluation format, it was agreed that we would provide the micro:bit which is representative of the results in the paper.", 
+            "title": "Why only the micro:bit?"
+        }, 
+        {
+            "location": "/codal/", 
+            "text": "Testing codal\n\n\nThe tests we conducted are listed below.\n\n\nGPIO toggle time\n\n\nThis test is used to determine the time taken to toggle the GPIO. This time is then used as an offset in other other tests to remove this delay from our results.\n\n\nSteps to reproduce\n\n\n\n\nEnsure \n./codal/config.json\n has \ndebug\n and \nheap_debug\n set to 0.\n\n\nCopy the contents of \ntests/codal/gpio-base/BaseGPIOTest.cpp\n to \ncodal/source/main.cpp\n.\n\n\nCompile the program by running \nyt clean \n yt build\n in \n./codal\n.\n\n\nFrom \n./codal\n copy \nbuild/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex\n to the microbit.\n\n\nMeasure the positive width of the pulse using an oscilloscope, 1us per division.\n\n\n\n\nWhere is this result used?\n\n\nIn each result where time is reported.\n\n\nContext switch time\n\n\nThis test determines the cost of our stack duplication approach with respect to time. We page between two fibers, and observe the impact this has on execution time using GPIO and an oscilloscope.\n\n\nSteps to reproduce\n\n\n\n\nEnsure \n./codal/config.json\n has \ndebug\n and \nheap_debug\n set to 0.\n\n\nCopy the contents of \ntests/codal/gpio-base/ContextSwitchTest.cpp\n to \ncodal/source/main.cpp\n.\n\n\nCompile the program by running \nyt clean \n yt build\n in \n./codal\n.\n\n\nFrom \n./codal\n copy \nbuild/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex\n to the microbit.\n\n\nMeasure the positive width of the pulse using an oscilloscope, 1us per division.\n\n\n\n\nDo not forget to subtract the time taken to toggle a GPIO from these results.\n\n\nWhere is this result used?\n\n\nFigure 7, where we report context switch time vs. stack size, and Figure 6, where we report the context switch profiles for each device.\n\n\nContext switch longitudinal test\n\n\nThis test determines the cost of our stack duplication approach with respect to time. We force bytes onto the stack in two fibers, paging between them, and observe the impact this has on execution time using GPIO and an oscilloscope.\n\n\nSteps to reproduce\n\n\n\n\nEnsure \n./codal/config.json\n has \ndebug\n and \nheap_debug\n set to 0.\n\n\nCopy the contents of \ntests/codal/gpio-base/ContextSwitchTest.cpp\n to \ncodal/source/main.cpp\n.\n\n\nCompile the program by running \nyt clean \n yt build\n in \n./codal\n.\n\n\nFrom \n./codal\n copy \nbuild/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex\n to the microbit.\n\n\nMeasure the positive width of the pulse using an oscilloscope.\n\n\nRepeat steps 1 - 4 modifying the \nBUFFER_SIZE\n define at the top of the main program in increasing powers of 2.\n\n\n\n\nDo not forget to subtract the time taken to toggle a GPIO from these results.\n\n\nWhere is this result used?\n\n\nFigure 7, where we report context switch time vs. stack size.\n\n\nTight loop execution time\n\n\nThis test counts from 0 to 100,000 using C++. After a full iteration, a GPIO is toggled, allowing us to calculate the time using an oscilloscope.\n\n\nSteps to reproduce\n\n\n\n\nEnsure \n./codal/config.json\n has \ndebug\n and \nheap_debug\n set to 0.\n\n\nCopy the contents of \ntests/codal/gpio-base/TightLoopTest.cpp\n to \ncodal/source/main.cpp\n.\n\n\nCompile the program by running \nyt clean \n yt build\n in \n./codal\n.\n\n\nFrom \n./codal\n copy \nbuild/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex\n to the microbit.\n\n\nMeasure the positive width of the pulse using an oscilloscope, 100ms per division should be adequate.\n\n\n\n\nWhere is this result used?\n\n\nTable 2, where we report the execution speed of each environment compared to MakeCode and Codal.\n\n\nContext switch stack usage\n\n\nThis test is used to determine the default stack depth in codal, and thus it's contribution to the time taken to page out the stack.\n\n\nSteps to reproduce\n\n\n\n\nSet \ndebug\n and \nheap_debug\n in \n./codal/config.json\n to 1.\n\n\nCopy the contents of \ntests/codal/gpio-base/ContextSwitchTest.cpp\n to \ncodal/source/main.cpp\n.\n\n\nCompile the program by running \nyt clean \n yt build\n in \n./codal\n.\n\n\nFrom \n./codal\n copy \nbuild/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex\n to the microbit.\n\n\nIn your serial terminal the output should read \nsd: xxx bufferSize: xx\n, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.\n\n\n\n\nWhere is this result used?\n\n\nFigure 6, where we show the context switch time per device, broken down by environment. We calculate each segment (Codal, Stack, MakeCode) using the time data gathered in the context switch time test. We then use codal as the benchmark to compute the impact of the stack for each; subtracting codal, and stack page times, gives us the overhead of MakeCode.\n\n\nMemory consumption\n\n\nThis results for this test are calculated when determining the consumption of MakeCode, please see \"Memory consumption\" in \nmakecode\n.", 
+            "title": "Codal"
+        }, 
+        {
+            "location": "/codal/#testing-codal", 
+            "text": "The tests we conducted are listed below.", 
+            "title": "Testing codal"
+        }, 
+        {
+            "location": "/codal/#gpio-toggle-time", 
+            "text": "This test is used to determine the time taken to toggle the GPIO. This time is then used as an offset in other other tests to remove this delay from our results.", 
+            "title": "GPIO toggle time"
+        }, 
+        {
+            "location": "/codal/#steps-to-reproduce", 
+            "text": "Ensure  ./codal/config.json  has  debug  and  heap_debug  set to 0.  Copy the contents of  tests/codal/gpio-base/BaseGPIOTest.cpp  to  codal/source/main.cpp .  Compile the program by running  yt clean   yt build  in  ./codal .  From  ./codal  copy  build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex  to the microbit.  Measure the positive width of the pulse using an oscilloscope, 1us per division.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/codal/#where-is-this-result-used", 
+            "text": "In each result where time is reported.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/codal/#context-switch-time", 
+            "text": "This test determines the cost of our stack duplication approach with respect to time. We page between two fibers, and observe the impact this has on execution time using GPIO and an oscilloscope.", 
+            "title": "Context switch time"
+        }, 
+        {
+            "location": "/codal/#steps-to-reproduce_1", 
+            "text": "Ensure  ./codal/config.json  has  debug  and  heap_debug  set to 0.  Copy the contents of  tests/codal/gpio-base/ContextSwitchTest.cpp  to  codal/source/main.cpp .  Compile the program by running  yt clean   yt build  in  ./codal .  From  ./codal  copy  build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex  to the microbit.  Measure the positive width of the pulse using an oscilloscope, 1us per division.   Do not forget to subtract the time taken to toggle a GPIO from these results.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/codal/#where-is-this-result-used_1", 
+            "text": "Figure 7, where we report context switch time vs. stack size, and Figure 6, where we report the context switch profiles for each device.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/codal/#context-switch-longitudinal-test", 
+            "text": "This test determines the cost of our stack duplication approach with respect to time. We force bytes onto the stack in two fibers, paging between them, and observe the impact this has on execution time using GPIO and an oscilloscope.", 
+            "title": "Context switch longitudinal test"
+        }, 
+        {
+            "location": "/codal/#steps-to-reproduce_2", 
+            "text": "Ensure  ./codal/config.json  has  debug  and  heap_debug  set to 0.  Copy the contents of  tests/codal/gpio-base/ContextSwitchTest.cpp  to  codal/source/main.cpp .  Compile the program by running  yt clean   yt build  in  ./codal .  From  ./codal  copy  build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex  to the microbit.  Measure the positive width of the pulse using an oscilloscope.  Repeat steps 1 - 4 modifying the  BUFFER_SIZE  define at the top of the main program in increasing powers of 2.   Do not forget to subtract the time taken to toggle a GPIO from these results.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/codal/#where-is-this-result-used_2", 
+            "text": "Figure 7, where we report context switch time vs. stack size.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/codal/#tight-loop-execution-time", 
+            "text": "This test counts from 0 to 100,000 using C++. After a full iteration, a GPIO is toggled, allowing us to calculate the time using an oscilloscope.", 
+            "title": "Tight loop execution time"
+        }, 
+        {
+            "location": "/codal/#steps-to-reproduce_3", 
+            "text": "Ensure  ./codal/config.json  has  debug  and  heap_debug  set to 0.  Copy the contents of  tests/codal/gpio-base/TightLoopTest.cpp  to  codal/source/main.cpp .  Compile the program by running  yt clean   yt build  in  ./codal .  From  ./codal  copy  build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex  to the microbit.  Measure the positive width of the pulse using an oscilloscope, 100ms per division should be adequate.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/codal/#where-is-this-result-used_3", 
+            "text": "Table 2, where we report the execution speed of each environment compared to MakeCode and Codal.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/codal/#context-switch-stack-usage", 
+            "text": "This test is used to determine the default stack depth in codal, and thus it's contribution to the time taken to page out the stack.", 
+            "title": "Context switch stack usage"
+        }, 
+        {
+            "location": "/codal/#steps-to-reproduce_4", 
+            "text": "Set  debug  and  heap_debug  in  ./codal/config.json  to 1.  Copy the contents of  tests/codal/gpio-base/ContextSwitchTest.cpp  to  codal/source/main.cpp .  Compile the program by running  yt clean   yt build  in  ./codal .  From  ./codal  copy  build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex  to the microbit.  In your serial terminal the output should read  sd: xxx bufferSize: xx , the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/codal/#where-is-this-result-used_4", 
+            "text": "Figure 6, where we show the context switch time per device, broken down by environment. We calculate each segment (Codal, Stack, MakeCode) using the time data gathered in the context switch time test. We then use codal as the benchmark to compute the impact of the stack for each; subtracting codal, and stack page times, gives us the overhead of MakeCode.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/codal/#memory-consumption", 
+            "text": "This results for this test are calculated when determining the consumption of MakeCode, please see \"Memory consumption\" in  makecode .", 
+            "title": "Memory consumption"
+        }, 
+        {
+            "location": "/espruino/", 
+            "text": "Testing Espruino\n\n\nThe tests we conducted are listed below.\n\n\nTight loop execution time\n\n\nThis test is used to determine the overhead of a full interpretter on the microbit. The test runs a tight spin loop using a python program toggling a gpio every 100,000 increments of a count.\n\n\nSteps to reproduce\n\n\n\n\nFlash \nespruino_1v95_microbit.hex\n to the microbit.\n\n\nConnect a serial terminal to the microbit at 9600 baud.\n\n\nCopy and paste \n./tests/espruino/tight-loop/tight-loop.js\n into your connected serial terminal.\n\n\nSet oscilloscope to 25s per division.\n\n\nMeasure the result.\n\n\n\n\nWhere is this result used?\n\n\nTable 2, where we report the execution speed of each environment compared to MakeCode and Codal.", 
+            "title": "Espruino"
+        }, 
+        {
+            "location": "/espruino/#testing-espruino", 
+            "text": "The tests we conducted are listed below.", 
+            "title": "Testing Espruino"
+        }, 
+        {
+            "location": "/espruino/#tight-loop-execution-time", 
+            "text": "This test is used to determine the overhead of a full interpretter on the microbit. The test runs a tight spin loop using a python program toggling a gpio every 100,000 increments of a count.", 
+            "title": "Tight loop execution time"
+        }, 
+        {
+            "location": "/espruino/#steps-to-reproduce", 
+            "text": "Flash  espruino_1v95_microbit.hex  to the microbit.  Connect a serial terminal to the microbit at 9600 baud.  Copy and paste  ./tests/espruino/tight-loop/tight-loop.js  into your connected serial terminal.  Set oscilloscope to 25s per division.  Measure the result.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/espruino/#where-is-this-result-used", 
+            "text": "Table 2, where we report the execution speed of each environment compared to MakeCode and Codal.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/makecode/", 
+            "text": "Testing MakeCode\n\n\nTo test MakeCode, the process is slightly more involved, due to the web-based nature and many stages of compilation, in order to provide the user with the ability to compile in-the-browser.\n\n\nTo conduct tests accurately, you will need to perform a few modifications and intricate compile steps. These will be documented as clearly as possible.\n\n\nThe tests we conducted are listed below.\n\n\nGPIO toggle time\n\n\nThis test is used to determine the time taken to toggle the GPIO. This time is then used as an offset in other other tests to remove this delay from our results.\n\n\nSteps to reproduce\n\n\n\n\nDestroy any running local makecode instances by killing the server, and closing the browser.\n\n\nEnsure \n./makecode/pxt-microbit/libs/core/pxt.json\n has \ndebug\n and \nheap_debug\n set to 0.\n\n\nChange to the \n./makecode/pxt-microbit\n directory.\n\n\nRun \npxt serve\n and wait until a web browser opens with a local instance of MakeCode.\n\n\nCopy the contents of \nroot/tests/makecode/gpio-base/gpio-base-test.ts\n into the editor window.\n\n\nHit download, which may do one of two things:\n\n\nAutomatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).\n\n\nDownload a hex file for you to transfer manually to the microbit.\n\n\n\n\n\n\nFlash your program manually if required.\n\n\nUse an oscilloscope set to 10us per division and measure the output.\n\n\n\n\nWhere is this result used?\n\n\nIn each result where time is reported.\n\n\nContext switch time\n\n\nThis test determines the cost of our stack duplication approach with respect to time in MakeCode. We page between two fibers, and observe the impact this has on execution time using GPIO and an oscilloscope.\n\n\nSteps to reproduce\n\n\n\n\nDestroy any running local makecode instances by killing the server, and closing the browser.\n\n\nEnsure \n./makecode/pxt-microbit/libs/core/pxt.json\n has \ndebug\n and \nheap_debug\n set to 0.\n\n\nChange to the \n./makecode/pxt-microbit\n directory.\n\n\nRun \npxt serve\n and wait until a web browser opens with a local instance of MakeCode.\n\n\nCopy the contents of \nroot/tests/makecode/gpio-base/context-switch-test.ts\n into the editor window.\n\n\nHit download, which may do one of two things:\n\n\nAutomatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).\n\n\nDownload a hex file for you to transfer manually to the microbit.\n\n\n\n\n\n\nFlash your program manually if required.\n\n\nUse an oscilloscope set to 25us per division and measure the output.\n\n\n\n\nDo not forget to subtract the time taken to toggle a GPIO from these results.\n\n\nWhere is this result used?\n\n\nFigure 7, where we report context switch time vs. stack size, and Figure 6, where we report the context switch profiles for each device.\n\n\nTight loop execution time\n\n\nThis test counts from 0 to 100,000, using the higher level language in MakeCode, TypeScript. After a full iteration, a GPIO is toggled, allowing us to calculate the time using an oscilloscope.\n\n\nSteps to reproduce\n\n\n\n\nDestroy any running local makecode instances by killing the server, and closing the browser.\n\n\nEnsure \n./makecode/pxt-microbit/libs/core/pxt.json\n has \ndebug\n and \nheap_debug\n set to 0.\n\n\nChange to the \n./makecode/pxt-microbit\n directory.\n\n\nRun \npxt serve\n and wait until a web browser opens with a local instance of MakeCode.\n\n\nCopy the contents of \nroot/tests/makecode/gpio-base/tight-loop-test.ts\n into the editor window.\n\n\nHit download, which may do one of two things:\n\n\nAutomatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).\n\n\nDownload a hex file for you to transfer manually to the microbit.\n\n\n\n\n\n\nFlash your program manually if required.\n\n\nUse an oscilloscope set to 25us per division and measure the output.\n\n\n\n\nWhere is this result used?\n\n\nTable 2, where we report the execution speed of each environment compared to MakeCode and Codal.\n\n\nMemory consumption\n\n\nThis test uses the map file generated by PXT to break down all libraries into individual units, and computes the RAM / Flash cost of each.\n\n\nSteps to reproduce\n\n\n\n\nEnsure \n./makecode/pxt-microbit/libs/core/pxt.json\n has \ndebug\n and \nheap_debug\n set to 0 and was built previously with these settings.\n\n\nChange to the \n./makecode/pxt-microbit\n directory.\n\n\nRun \nnode ../../tests/makecode/memory-consumption/map-file-stats.js ./libs/blocksprj/built/yt/build/bbc-microbit-classic-gcc/source/pxt-microbit-app.map\n in your terminal.\n\n\nCompute the results. Results with 'RAM' in front, indicate pre-allocated RAM in the globals or bss space. Results without 'RAM' in front are flash sizes. Both are reported in kB.\n\n\n\n\nWhere is this result used?\n\n\nTables 4 and 5, where we report the flash and RAM usage of individual compilation units.\n\n\nContext switch stack usage\n\n\nThis test is used to determine the default stack depth in MakeCode, and thus it's contribution to the time taken to page out the stack.\n\n\nSteps to reproduce\n\n\n\n\nDestroy any running local makecode instances by killing the server, and closing the browser.\n\n\nSet \ndebug\n and \nheap_debug\n in \n./makecode/pxt-microbit/libs/core/pxt.json\n to 1.\n\n\nChange to the \n./makecode/pxt-microbit\n directory.\n\n\nRun \npxt serve\n and wait until a web browser opens with a local instance of MakeCode.\n\n\nCopy the contents of \nroot/tests/makecode/gpio-base/context-switch-test.ts\n into the editor window.\n\n\nHit download, which may do one of two things:\n\n\nAutomatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).\n\n\nDownload a hex file for you to transfer manually to the microbit.\n\n\n\n\n\n\nFlash your program manually if required.\n\n\nIn your serial terminal the output should read \nsd: xxx bufferSize: xx\n, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.\n\n\n\n\nWhere is this result used?\n\n\nFigure 6, where we show the context switch time per device, broken down by environment. We calculate each segment (Codal, Stack, MakeCode) using the time data gathered in the context switch time test. We then use codal as the benchmark to compute the impact of the stack for each; subtracting codal, and stack page times, gives us the overhead of MakeCode.", 
+            "title": "MakeCode"
+        }, 
+        {
+            "location": "/makecode/#testing-makecode", 
+            "text": "To test MakeCode, the process is slightly more involved, due to the web-based nature and many stages of compilation, in order to provide the user with the ability to compile in-the-browser.  To conduct tests accurately, you will need to perform a few modifications and intricate compile steps. These will be documented as clearly as possible.  The tests we conducted are listed below.", 
+            "title": "Testing MakeCode"
+        }, 
+        {
+            "location": "/makecode/#gpio-toggle-time", 
+            "text": "This test is used to determine the time taken to toggle the GPIO. This time is then used as an offset in other other tests to remove this delay from our results.", 
+            "title": "GPIO toggle time"
+        }, 
+        {
+            "location": "/makecode/#steps-to-reproduce", 
+            "text": "Destroy any running local makecode instances by killing the server, and closing the browser.  Ensure  ./makecode/pxt-microbit/libs/core/pxt.json  has  debug  and  heap_debug  set to 0.  Change to the  ./makecode/pxt-microbit  directory.  Run  pxt serve  and wait until a web browser opens with a local instance of MakeCode.  Copy the contents of  root/tests/makecode/gpio-base/gpio-base-test.ts  into the editor window.  Hit download, which may do one of two things:  Automatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).  Download a hex file for you to transfer manually to the microbit.    Flash your program manually if required.  Use an oscilloscope set to 10us per division and measure the output.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/makecode/#where-is-this-result-used", 
+            "text": "In each result where time is reported.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/makecode/#context-switch-time", 
+            "text": "This test determines the cost of our stack duplication approach with respect to time in MakeCode. We page between two fibers, and observe the impact this has on execution time using GPIO and an oscilloscope.", 
+            "title": "Context switch time"
+        }, 
+        {
+            "location": "/makecode/#steps-to-reproduce_1", 
+            "text": "Destroy any running local makecode instances by killing the server, and closing the browser.  Ensure  ./makecode/pxt-microbit/libs/core/pxt.json  has  debug  and  heap_debug  set to 0.  Change to the  ./makecode/pxt-microbit  directory.  Run  pxt serve  and wait until a web browser opens with a local instance of MakeCode.  Copy the contents of  root/tests/makecode/gpio-base/context-switch-test.ts  into the editor window.  Hit download, which may do one of two things:  Automatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).  Download a hex file for you to transfer manually to the microbit.    Flash your program manually if required.  Use an oscilloscope set to 25us per division and measure the output.   Do not forget to subtract the time taken to toggle a GPIO from these results.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/makecode/#where-is-this-result-used_1", 
+            "text": "Figure 7, where we report context switch time vs. stack size, and Figure 6, where we report the context switch profiles for each device.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/makecode/#tight-loop-execution-time", 
+            "text": "This test counts from 0 to 100,000, using the higher level language in MakeCode, TypeScript. After a full iteration, a GPIO is toggled, allowing us to calculate the time using an oscilloscope.", 
+            "title": "Tight loop execution time"
+        }, 
+        {
+            "location": "/makecode/#steps-to-reproduce_2", 
+            "text": "Destroy any running local makecode instances by killing the server, and closing the browser.  Ensure  ./makecode/pxt-microbit/libs/core/pxt.json  has  debug  and  heap_debug  set to 0.  Change to the  ./makecode/pxt-microbit  directory.  Run  pxt serve  and wait until a web browser opens with a local instance of MakeCode.  Copy the contents of  root/tests/makecode/gpio-base/tight-loop-test.ts  into the editor window.  Hit download, which may do one of two things:  Automatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).  Download a hex file for you to transfer manually to the microbit.    Flash your program manually if required.  Use an oscilloscope set to 25us per division and measure the output.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/makecode/#where-is-this-result-used_2", 
+            "text": "Table 2, where we report the execution speed of each environment compared to MakeCode and Codal.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/makecode/#memory-consumption", 
+            "text": "This test uses the map file generated by PXT to break down all libraries into individual units, and computes the RAM / Flash cost of each.", 
+            "title": "Memory consumption"
+        }, 
+        {
+            "location": "/makecode/#steps-to-reproduce_3", 
+            "text": "Ensure  ./makecode/pxt-microbit/libs/core/pxt.json  has  debug  and  heap_debug  set to 0 and was built previously with these settings.  Change to the  ./makecode/pxt-microbit  directory.  Run  node ../../tests/makecode/memory-consumption/map-file-stats.js ./libs/blocksprj/built/yt/build/bbc-microbit-classic-gcc/source/pxt-microbit-app.map  in your terminal.  Compute the results. Results with 'RAM' in front, indicate pre-allocated RAM in the globals or bss space. Results without 'RAM' in front are flash sizes. Both are reported in kB.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/makecode/#where-is-this-result-used_3", 
+            "text": "Tables 4 and 5, where we report the flash and RAM usage of individual compilation units.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/makecode/#context-switch-stack-usage", 
+            "text": "This test is used to determine the default stack depth in MakeCode, and thus it's contribution to the time taken to page out the stack.", 
+            "title": "Context switch stack usage"
+        }, 
+        {
+            "location": "/makecode/#steps-to-reproduce_4", 
+            "text": "Destroy any running local makecode instances by killing the server, and closing the browser.  Set  debug  and  heap_debug  in  ./makecode/pxt-microbit/libs/core/pxt.json  to 1.  Change to the  ./makecode/pxt-microbit  directory.  Run  pxt serve  and wait until a web browser opens with a local instance of MakeCode.  Copy the contents of  root/tests/makecode/gpio-base/context-switch-test.ts  into the editor window.  Hit download, which may do one of two things:  Automatically upload the program to the microbit, if it's connected over USB. Look for a flashing indicator on the microbit (yellow light near the reset button).  Download a hex file for you to transfer manually to the microbit.    Flash your program manually if required.  In your serial terminal the output should read  sd: xxx bufferSize: xx , the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/makecode/#where-is-this-result-used_4", 
+            "text": "Figure 6, where we show the context switch time per device, broken down by environment. We calculate each segment (Codal, Stack, MakeCode) using the time data gathered in the context switch time test. We then use codal as the benchmark to compute the impact of the stack for each; subtracting codal, and stack page times, gives us the overhead of MakeCode.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/micropython/", 
+            "text": "Testing micropython\n\n\nThe tests we conducted are listed below.\n\n\nTight loop execution time (byte code compiled)\n\n\nThis test is used to determine the overhead of a bytecode interpretter on the microbit. The test runs a tight spin loop using a python program toggling a gpio every 100,000 increments of a count.\n\n\nA precompiled hex file (\n./test/micropython/tight-loop/compiled/microbit-micropython-bytecode-compiled.hex\n) is provided for convenience.\n\n\nSteps to reproduce\n\n\n\n\nNavigate to the \nmicropython online editor\n\n\nCopy the contents of \n./tests/tight-loop/compiled/tight-loop-compiled-test.py\n into the editor.\n\n\nClick download and drag the outputted hex file onto the microbit device.\n\n\nSet oscilloscope to 10s per division.\n\n\nMeasure the width of the high pulse.\n\n\n\n\nWhere is this result used?\n\n\nTable 2, where we report the execution speed of each environment compared to MakeCode and Codal.\n\n\nTight loop execution time (fully interpretted)\n\n\nThis test is used to determine the overhead of a full interpretter on the microbit. The test runs a tight spin loop using a python program toggling a gpio every 100,000 increments of a count.\n\n\nSteps to reproduce\n\n\n\n\nFlash \n./micropython/microbit-micropython.hex\n (the full interpretter) onto the microbit.\n\n\nConnect a serial terminal to the microbit at 115200 baud.\n\n\nPress \nctrl + e\n in your serial terminal to enter paste mode\n\n\nCopy and paste \n./tests/tight-loop/interpeted/tight-loop-test.py\n into your connected serial terminal.\n\n\nPress \nctrl + d\n to begin execution\n\n\nSet oscilloscope to 50s per division.\n\n\nMeasure the width of the high pulse.\n\n\n\n\nWhere is this result used?\n\n\nThis result is not used, but will appear in Table 2, where we report the execution speed of each environment compared to MakeCode and Codal for Camera Ready.", 
+            "title": "micropython"
+        }, 
+        {
+            "location": "/micropython/#testing-micropython", 
+            "text": "The tests we conducted are listed below.", 
+            "title": "Testing micropython"
+        }, 
+        {
+            "location": "/micropython/#tight-loop-execution-time-byte-code-compiled", 
+            "text": "This test is used to determine the overhead of a bytecode interpretter on the microbit. The test runs a tight spin loop using a python program toggling a gpio every 100,000 increments of a count.  A precompiled hex file ( ./test/micropython/tight-loop/compiled/microbit-micropython-bytecode-compiled.hex ) is provided for convenience.", 
+            "title": "Tight loop execution time (byte code compiled)"
+        }, 
+        {
+            "location": "/micropython/#steps-to-reproduce", 
+            "text": "Navigate to the  micropython online editor  Copy the contents of  ./tests/tight-loop/compiled/tight-loop-compiled-test.py  into the editor.  Click download and drag the outputted hex file onto the microbit device.  Set oscilloscope to 10s per division.  Measure the width of the high pulse.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/micropython/#where-is-this-result-used", 
+            "text": "Table 2, where we report the execution speed of each environment compared to MakeCode and Codal.", 
+            "title": "Where is this result used?"
+        }, 
+        {
+            "location": "/micropython/#tight-loop-execution-time-fully-interpretted", 
+            "text": "This test is used to determine the overhead of a full interpretter on the microbit. The test runs a tight spin loop using a python program toggling a gpio every 100,000 increments of a count.", 
+            "title": "Tight loop execution time (fully interpretted)"
+        }, 
+        {
+            "location": "/micropython/#steps-to-reproduce_1", 
+            "text": "Flash  ./micropython/microbit-micropython.hex  (the full interpretter) onto the microbit.  Connect a serial terminal to the microbit at 115200 baud.  Press  ctrl + e  in your serial terminal to enter paste mode  Copy and paste  ./tests/tight-loop/interpeted/tight-loop-test.py  into your connected serial terminal.  Press  ctrl + d  to begin execution  Set oscilloscope to 50s per division.  Measure the width of the high pulse.", 
+            "title": "Steps to reproduce"
+        }, 
+        {
+            "location": "/micropython/#where-is-this-result-used_1", 
+            "text": "This result is not used, but will appear in Table 2, where we report the execution speed of each environment compared to MakeCode and Codal for Camera Ready.", 
+            "title": "Where is this result used?"
+        }
+    ]
+}
