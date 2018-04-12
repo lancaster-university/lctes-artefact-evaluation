@@ -1,0 +1,17 @@
+extra_css:
+- css/extra.css
+markdown_extensions:
+- toc:
+    permalink: true
+- admonition: null
+pages:
+- Overview: index.md
+- Tests:
+  - Codal: codal.md
+  - Espruino: espruino.md
+  - MakeCode: makecode.md
+  - micropython: micropython.md
+repo_url: https://github.com/lancaster-university/lctes-artefact-evaluation
+site_description: A site describing the tests we conducted for LCTES using the micro:bit.
+site_name: MakeCode and Codal
+theme_dir: theme

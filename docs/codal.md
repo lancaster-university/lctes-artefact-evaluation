@@ -89,4 +89,4 @@ Figure 6, where we show the context switch time per device, broken down by envir
 
 ## Memory consumption
 
-This results for this test are calculated when determining the consumption of MakeCode, please see "Memory consumption" in MakeCode.md.
+This results for this test are calculated when determining the consumption of MakeCode, please see "Memory consumption" in [makecode](makecode.md).
