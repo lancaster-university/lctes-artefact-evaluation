@@ -21,6 +21,20 @@ This test is used to determine the time taken to toggle the GPIO. This time is t
 6. Drag the file using the files GUI or use the `cp` command to copy the hex file to the micro:bit
 7. Use an oscilloscope set to 10us per division and measure the output.
 
+### Test code
+
+```ts
+function set_gpio(state: number) {
+    pins.digitalWritePin(DigitalPin.P1, state)
+}
+
+while (true) {
+    set_gpio(1);
+    set_gpio(0);
+}
+
+```
+
 ### Where is this result used?
 
 In each result where time is reported.
@@ -42,6 +56,35 @@ This test determines the cost of our stack duplication approach with respect to 
 
 **Do not forget to subtract the time taken to toggle a GPIO from these results.**
 
+### Test code
+
+```ts
+function set_gpio(state: number) {
+    pins.digitalWritePin(DigitalPin.P1, state)
+}
+
+function high() {
+    while (1) {
+        set_gpio(1);
+        control.spinScheduler();
+    }
+}
+
+function low() {
+    while (1) {
+        set_gpio(0);
+        control.spinScheduler();
+    }
+}
+
+set_gpio(0);
+
+control.inBackground(high)
+control.inBackground(low)
+
+control.releaseFiber();
+```
+
 ### Where is this result used?
 
 Figure 7, where we report context switch time vs. stack size, and Figure 6, where we report the context switch profiles for each device.
@@ -60,6 +103,25 @@ This test counts from 0 to 100,000, using the higher level language in MakeCode,
 5. Hit download to download the compiled program as a hex file.
 6. Drag the file using the files GUI or use the `cp` command to copy the hex file to the micro:bit
 7. Use an oscilloscope set to 25us per division and measure the output.
+
+### Test code
+
+```ts
+function set_gpio(state: number) {
+    pins.digitalWritePin(DigitalPin.P1, state)
+}
+
+while (true) {
+    set_gpio(0);
+    for (let i = 0; i < 100000; i++) {
+        i = i;
+    }
+    set_gpio(1);
+    for (let i = 0; i < 100000; i++) {
+        i = i;
+    }
+}
+```
 
 ### Where is this result used?
 
@@ -93,7 +155,36 @@ This test is used to determine the default stack depth in MakeCode, and thus it'
 4. Copy the contents of `root/tests/makecode/gpio-base/context-switch-test.ts` into the editor window.
 5. Hit download to download the compiled program as a hex file.
 6. Drag the file using the files GUI or use the `cp` command to copy the hex file to the micro:bit
-7. In your serial terminal the output should read `sd: xxx bufferSize: xx`, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.
+7. In minicom ([described here](index.md#test-procedure)) the output should read `sd: xxx bufferSize: xx`, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.
+
+### Test code
+
+```ts
+function set_gpio(state: number) {
+    pins.digitalWritePin(DigitalPin.P1, state)
+}
+
+function high() {
+    while (1) {
+        set_gpio(1);
+        control.spinScheduler();
+    }
+}
+
+function low() {
+    while (1) {
+        set_gpio(0);
+        control.spinScheduler();
+    }
+}
+
+set_gpio(0);
+
+control.inBackground(high)
+control.inBackground(low)
+
+control.releaseFiber();
+```
 
 ### Where is this result used?
 

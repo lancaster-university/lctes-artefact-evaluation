@@ -22,6 +22,3 @@ control.inBackground(high)
 control.inBackground(low)
 
 control.releaseFiber();
-
-
-

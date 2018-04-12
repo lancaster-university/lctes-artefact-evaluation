@@ -14,6 +14,40 @@ This test is used to determine the time taken to toggle the GPIO. This time is t
 3. From `./codal` copy `build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex` to the microbit.
 4. Measure the positive width of the pulse using an oscilloscope, 1us per division.
 
+### Test code
+
+```cpp
+#include "MicroBit.h"
+
+MicroBit uBit;
+
+void set_gpio(int pin_number, int state)
+{
+    switch(pin_number)
+    {
+        case 0:
+            uBit.io.P0.setDigitalValue(state);
+            break;
+        case 1:
+            uBit.io.P1.setDigitalValue(state);
+            break;
+        case 2:
+            uBit.io.P2.setDigitalValue(state);
+            break;
+    }
+}
+
+int main()
+{
+    uBit.init();
+    while(1)
+    {
+        set_gpio(1,1);
+        set_gpio(1,0);
+    }
+}
+```
+
 ### Where is this result used?
 
 In each result where time is reported.
@@ -31,6 +65,72 @@ This test determines the cost of our stack duplication approach with respect to 
 4. Measure the positive width of the pulse using an oscilloscope, 1us per division.
 
 **Do not forget to subtract the time taken to toggle a GPIO from these results.**
+
+### Test code
+
+```cpp
+#include "MicroBit.h"
+
+MicroBit uBit;
+
+#define BUFFER_SIZE 0
+
+void set_gpio(int pin_number, int state)
+{
+    switch(pin_number)
+    {
+        case 0:
+            uBit.io.P0.setDigitalValue(state);
+            break;
+        case 1:
+            uBit.io.P1.setDigitalValue(state);
+            break;
+        case 2:
+            uBit.io.P2.setDigitalValue(state);
+            break;
+    }
+}
+
+void high()
+{
+#if BUFFER_SIZE > 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+
+    while(1)
+    {
+        set_gpio(1,1);
+        schedule();
+    }
+}
+
+void low()
+{
+#if BUFFER_SIZE > 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+    while(1)
+    {
+        set_gpio(1,0);
+        schedule();
+    }
+}
+
+
+int main()
+{
+    uBit.init();
+
+    set_gpio(1,0);
+
+    create_fiber(low);
+    create_fiber(high);
+
+    release_fiber();
+}
+```
 
 ### Where is this result used?
 
@@ -51,6 +151,72 @@ This test determines the cost of our stack duplication approach with respect to 
 
 **Do not forget to subtract the time taken to toggle a GPIO from these results.**
 
+### Test code
+
+```cpp
+#include "MicroBit.h"
+
+MicroBit uBit;
+
+#define BUFFER_SIZE 0
+
+void set_gpio(int pin_number, int state)
+{
+    switch(pin_number)
+    {
+        case 0:
+            uBit.io.P0.setDigitalValue(state);
+            break;
+        case 1:
+            uBit.io.P1.setDigitalValue(state);
+            break;
+        case 2:
+            uBit.io.P2.setDigitalValue(state);
+            break;
+    }
+}
+
+void high()
+{
+#if BUFFER_SIZE > 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+
+    while(1)
+    {
+        set_gpio(1,1);
+        schedule();
+    }
+}
+
+void low()
+{
+#if BUFFER_SIZE > 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+    while(1)
+    {
+        set_gpio(1,0);
+        schedule();
+    }
+}
+
+
+int main()
+{
+    uBit.init();
+
+    set_gpio(1,0);
+
+    create_fiber(low);
+    create_fiber(high);
+
+    release_fiber();
+}
+```
+
 ### Where is this result used?
 
 Figure 7, where we report context switch time vs. stack size.
@@ -67,6 +233,54 @@ This test counts from 0 to 100,000 using C++. After a full iteration, a GPIO is 
 3. From `./codal` copy `build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex` to the microbit.
 4. Measure the positive width of the pulse using an oscilloscope, 100ms per division should be adequate.
 
+### Test code
+
+```cpp
+
+#include "MicroBit.h"
+
+MicroBit uBit;
+
+void set_gpio(int pin_number, int state)
+{
+    switch(pin_number)
+    {
+        case 0:
+            uBit.io.P0.setDigitalValue(state);
+            break;
+        case 1:
+            uBit.io.P1.setDigitalValue(state);
+            break;
+        case 2:
+            uBit.io.P2.setDigitalValue(state);
+            break;
+    }
+}
+
+int main()
+{
+    uBit.init();
+
+    set_gpio(1,0);
+
+    while(1)
+    {
+        set_gpio(1,1);
+        for(volatile int i = 0; i < 100000; i++)
+        {
+            i =i;
+        }
+        set_gpio(1,0);
+        for(volatile int i = 0; i < 100000; i++)
+        {
+            i =i;
+        }
+    }
+
+    release_fiber();
+}
+```
+
 ### Where is this result used?
 
 Table 2, where we report the execution speed of each environment compared to MakeCode and Codal.
@@ -81,7 +295,73 @@ This test is used to determine the default stack depth in codal, and thus it's c
 1. Copy the contents of `tests/codal/gpio-base/ContextSwitchTest.cpp` to `codal/source/main.cpp`.
 2. Compile the program by running `yt clean && yt build` in `./codal`.
 3. From `./codal` copy `build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex` to the microbit.
-4. In your serial terminal the output should read `sd: xxx bufferSize: xx`, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.
+4. In minicom ([described here](index.md#test-procedure)) the output should read `sd: xxx bufferSize: xx`, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.
+
+### Test code
+
+```cpp
+#include "MicroBit.h"
+
+MicroBit uBit;
+
+#define BUFFER_SIZE 0
+
+void set_gpio(int pin_number, int state)
+{
+    switch(pin_number)
+    {
+        case 0:
+            uBit.io.P0.setDigitalValue(state);
+            break;
+        case 1:
+            uBit.io.P1.setDigitalValue(state);
+            break;
+        case 2:
+            uBit.io.P2.setDigitalValue(state);
+            break;
+    }
+}
+
+void high()
+{
+#if BUFFER_SIZE > 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+
+    while(1)
+    {
+        set_gpio(1,1);
+        schedule();
+    }
+}
+
+void low()
+{
+#if BUFFER_SIZE > 0
+    volatile char b[BUFFER_SIZE] = {0};
+#endif
+
+    while(1)
+    {
+        set_gpio(1,0);
+        schedule();
+    }
+}
+
+
+int main()
+{
+    uBit.init();
+
+    set_gpio(1,0);
+
+    create_fiber(low);
+    create_fiber(high);
+
+    release_fiber();
+}
+```
 
 ### Where is this result used?
 

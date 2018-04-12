@@ -15,7 +15,7 @@ On this website, you will find the information required to reproduce our results
 
 ## Test procedure
 
-Firstly, a virtual machine needs to be downloaded, steps to do this are described in the section entitled 'Obtaining the virtual machine' listed below.
+Firstly, a virtual machine needs to be downloaded, steps to do this are described in the section entitled [Obtaining the virtual machine](#obtaining-the-virtual-machine).
 
 Once you have obtained the virtual machine, the root directory for testing (`evaluators`) is arranged in the following form:
 
@@ -33,13 +33,15 @@ The micro:bit is connected to a PC over USB (top of the micro:bit), which also e
 
 For information on how to use an oscilloscope we recommend this [sparkfun tutorial](https://learn.sparkfun.com/tutorials/how-to-use-an-oscilloscope/anatomy-of-an-o-scope#horizontal).
 
+We provide minicom installed on the virtual machine to observe serial results. From a terminal run `minicom -D /dev/ttyACM0 -b 115200` to communicate with the microbit. `-D` specifies the device, and `-b` specifies the baud rate. Pasting into minicom (or more widely, a terminal window) is done through using `ctrl + shift + v`. To quit minicom, press `ctrl + a` followed by `q`.
+
 ## What is a micro:bit?
 
 The [micro:bit](https://microbit.org) is a small embedded computer designed for computer science education, MakeCode and Codal were initially designed for the micro:bit, evolving and supporting other devices over time.
 
 ## Obtaining the virtual machine
 
-The virtual machine is contained here in [google drive](some.url.eventually), freely downloadable by anyone.
+The virtual machine is contained here in [google drive](https://drive.google.com/open?id=1nxiorz6NRqjen89G59RCOEMklqAyaUv7), freely downloadable by anyone.
 
 The virtual machine contains a folder named `evaluators` which is placed in the home directory of the lctes user. The username for the virtual machine is: `lctes` and the password is: `lctes2018`. To become super user, type su in a terminal, and enter the same password (`lctes2018`).
 
