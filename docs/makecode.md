@@ -6,6 +6,9 @@ To conduct tests accurately, you will need to perform a few modifications and in
 
 The tests we conducted are listed below.
 
+!!!warning
+    Please ignore any warnings from the MakeCode editor when running these tests. We didn't add required simulations for new code we added to conduct these tests.
+
 ## GPIO toggle time
 
 This test is used to determine the time taken to toggle the GPIO. This time is then used as an offset in other other tests to remove this delay from our results.
