@@ -41,7 +41,7 @@ The [micro:bit](https://microbit.org) is a small embedded computer designed for 
 
 ## Obtaining the virtual machine
 
-The virtual machine is contained here in [google drive](https://drive.google.com/open?id=1nxiorz6NRqjen89G59RCOEMklqAyaUv7), freely downloadable by anyone.
+The virtual machine is contained here in [google drive](https://drive.google.com/open?id=1nxiorz6NRqjen89G59RCOEMklqAyaUv7), freely downloadable by anyone. You will need to install the [VM VirtualBox Extension Pack](https://www.virtualbox.org/wiki/Downloads).
 
 The virtual machine contains a folder named `evaluators` which is placed in the home directory of the lctes user. The username for the virtual machine is: `lctes` and the password is: `lctes2018`. To become super user, type su in a terminal, and enter the same password (`lctes2018`).
 
