@@ -1,6 +1,6 @@
-# MakeCode and Codal: Intuitive and Efficient Embedded Systems Programming for Education
+# Testing MakeCode and Codal
 
-In these markdown files, you will find the information required to reproduce our results gathered for the paper using the micro:bit.
+On this website, you will find the information required to reproduce our results gathered for the paper entitled "MakeCode and Codal: Intuitive and Efficient Embedded Systems Programming for Education" using the micro:bit. After reading the entirety of this page, at the top there is a drop down menu labelled `tests` which provides links to detailed documents on the tests we conducted for each environment using the micro:bit.
 
 ## Physical requirements
 
@@ -15,10 +15,12 @@ In these markdown files, you will find the information required to reproduce our
 
 ## Test procedure
 
-The root directory is arranged in the following form:
+Firstly, a virtual machine needs to be downloaded, steps to do this are described in the section entitled 'Obtaining the virtual machine' listed below.
+
+Once you have obtained the virtual machine, the root directory for testing (`evaluators`) is arranged in the following form:
 
 - `codal` contains the codal build environment which you will use to conduct codal tests.
-- `docs` contains the documentation for tests and this overview document.
+- `docs` contains the documentation for tests and this overview document. We provide this website for convenience.
 - `espruino` contains the espruino interpretter used when testing espruino.
 - `makecode` contains a modified copy of the executable web editor that can be run locally.
 - `tests` contains all of the tests, grouped by each environment, their use is described in the `docs` folder. e.g. `docs/codal.md` describes all tests that are contained in `tests/codal/*`.
@@ -31,20 +33,22 @@ The micro:bit is connected to a PC over USB (top of the micro:bit), which also e
 
 For information on how to use an oscilloscope we recommend this [sparkfun tutorial](https://learn.sparkfun.com/tutorials/how-to-use-an-oscilloscope/anatomy-of-an-o-scope#horizontal).
 
-## Reproducibility
-
-There are various factors which could affect the accuracy of the results we report in the paper:
-
-- Toolchains used to build programs
-- Oscilloscope quality
-- Calibration of the Oscilloscope
-
-In reproducing these results ourselves we have noted small variations of +/- 30 microseconds, as we have updated our own toolchains.
-
 ## What is a micro:bit?
 
 The [micro:bit](https://microbit.org) is a small embedded computer designed for computer science education, MakeCode and Codal were initially designed for the micro:bit, evolving and supporting other devices over time.
 
-## Why only the micro:bit?
+## Obtaining the virtual machine
 
-As testing a large number of devices is complex, especially in a distributed artifact evaluation format, it was agreed that we would provide the micro:bit which is representative of the results in the paper.
+The virtual machine is contained here in [google drive](some.url.eventually), freely downloadable by anyone.
+
+The virtual machine contains a folder named `evaluators` which is placed in the home directory of the lctes user. The username for the virtual machine is: `lctes` and the password is: `lctes2018`. To become super user, type su in a terminal, and enter the same password (`lctes2018`).
+
+Once logged in, and in the `evaluators` directory, you can view the tests as markdown files in the `docs` directory. Alternately, these markdown documents can also be viewed on the web by running `mkdocs serve` in the evaluators folder, or browsing to: https://lancaster-university.github.io/lctes-artefact-evaluation/ which is a pre-built, and hosted version produced from the same source.
+
+We recommend that you add the micro:bit usb device using the machine settings tab in virtual box as shown in the image below:
+
+![virtual-box-image](images/virtualbox.png)
+
+We also have a convenience script for mounting a shared folder between the host and the vm. Simply create a shared folder named `lctes-vm-dir` and run `sh mount.sh` (contained in `evaluators`) as a super user to mount the shared folder to vb-share (also contained in `evaluators`). Shared folder creation in VirtualBox is pictured below:
+
+![virtual-box-shared-folder-image](images/shared-folder.png)

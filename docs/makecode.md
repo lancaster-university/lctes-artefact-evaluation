@@ -50,7 +50,7 @@ This test determines the cost of our stack duplication approach with respect to 
 
 Figure 7, where we report context switch time vs. stack size, and Figure 6, where we report the context switch profiles for each device.
 
-### Tight loop execution time
+## Tight loop execution time
 
 This test counts from 0 to 100,000, using the higher level language in MakeCode, TypeScript. After a full iteration, a GPIO is toggled, allowing us to calculate the time using an oscilloscope.
 
