@@ -353,6 +353,10 @@ int main()
 <p>Figure 7, where we report context switch time vs. stack size.</p>
 <h2 id="tight-loop-execution-time">Tight loop execution time<a class="headerlink" href="#tight-loop-execution-time" title="Permanent link">&para;</a></h2>
 <p>This test counts from 0 to 100,000 using C++. After a full iteration, a GPIO is toggled, allowing us to calculate the time using an oscilloscope.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On the virtual machine, the result for this test will report ~114 ms due to the older version of <code>arm-none-eabi-gcc</code>. The results shown in the paper use version 7.2.1.</p>
+</div>
 <h3 id="steps-to-reproduce_3">Steps to reproduce<a class="headerlink" href="#steps-to-reproduce_3" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Ensure <code>./codal/config.json</code> has <code>debug</code> and <code>heap_debug</code> set to 0.</li>
