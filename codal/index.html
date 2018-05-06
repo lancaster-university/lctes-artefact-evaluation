@@ -201,7 +201,7 @@ int main()
 <h3 id="steps-to-reproduce_1">Steps to reproduce<a class="headerlink" href="#steps-to-reproduce_1" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Ensure <code>./codal/config.json</code> has <code>debug</code> and <code>heap_debug</code> set to 0.</li>
-<li>Copy the contents of <code>tests/codal/gpio-base/ContextSwitchTest.cpp</code> to <code>codal/source/main.cpp</code>.</li>
+<li>Copy the contents of <code>tests/codal/context-switch-time/ContextSwitchTest.cpp</code> to <code>codal/source/main.cpp</code>.</li>
 <li>Compile the program by running <code>yt clean &amp;&amp; yt build</code> in <code>./codal</code>.</li>
 <li>From <code>./codal</code> copy <code>build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex</code> to the microbit.</li>
 <li>Measure the positive width of the pulse using an oscilloscope, 1us per division.</li>
@@ -278,7 +278,7 @@ int main()
 <h3 id="steps-to-reproduce_2">Steps to reproduce<a class="headerlink" href="#steps-to-reproduce_2" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Ensure <code>./codal/config.json</code> has <code>debug</code> and <code>heap_debug</code> set to 0.</li>
-<li>Copy the contents of <code>tests/codal/gpio-base/ContextSwitchTest.cpp</code> to <code>codal/source/main.cpp</code>.</li>
+<li>Copy the contents of <code>tests/codal/context-switch-time/ContextSwitchTest.cpp</code> to <code>codal/source/main.cpp</code>.</li>
 <li>Compile the program by running <code>yt clean &amp;&amp; yt build</code> in <code>./codal</code>.</li>
 <li>From <code>./codal</code> copy <code>build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex</code> to the microbit.</li>
 <li>Measure the positive width of the pulse using an oscilloscope.</li>
@@ -356,7 +356,7 @@ int main()
 <h3 id="steps-to-reproduce_3">Steps to reproduce<a class="headerlink" href="#steps-to-reproduce_3" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Ensure <code>./codal/config.json</code> has <code>debug</code> and <code>heap_debug</code> set to 0.</li>
-<li>Copy the contents of <code>tests/codal/gpio-base/TightLoopTest.cpp</code> to <code>codal/source/main.cpp</code>.</li>
+<li>Copy the contents of <code>tests/codal/tight-loop/TightLoopTest.cpp</code> to <code>codal/source/main.cpp</code>.</li>
 <li>Compile the program by running <code>yt clean &amp;&amp; yt build</code> in <code>./codal</code>.</li>
 <li>From <code>./codal</code> copy <code>build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex</code> to the microbit.</li>
 <li>Measure the positive width of the pulse using an oscilloscope, 100ms per division should be adequate.</li>
@@ -414,7 +414,7 @@ int main()
 <h3 id="steps-to-reproduce_4">Steps to reproduce<a class="headerlink" href="#steps-to-reproduce_4" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Set <code>debug</code> and <code>heap_debug</code> in <code>./codal/config.json</code> to 1.</li>
-<li>Copy the contents of <code>tests/codal/gpio-base/ContextSwitchTest.cpp</code> to <code>codal/source/main.cpp</code>.</li>
+<li>Copy the contents of <code>tests/codal/context-switch-time/ContextSwitchTest.cpp</code> to <code>codal/source/main.cpp</code>.</li>
 <li>Compile the program by running <code>yt clean &amp;&amp; yt build</code> in <code>./codal</code>.</li>
 <li>From <code>./codal</code> copy <code>build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex</code> to the microbit.</li>
 <li>In minicom (<a href="..#test-procedure">described here</a>) the output should read <code>sd: xxx bufferSize: xx</code>, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.</li>
