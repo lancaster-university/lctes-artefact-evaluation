@@ -225,6 +225,9 @@ Figure 7, where we report context switch time vs. stack size.
 
 This test counts from 0 to 100,000 using C++. After a full iteration, a GPIO is toggled, allowing us to calculate the time using an oscilloscope.
 
+!!!note
+    On the virtual machine, the result for this test will report ~114 ms due to the older version of `arm-none-eabi-gcc`. The results shown in the paper use version 7.2.1.
+
 ### Steps to reproduce
 
 1. Ensure `./codal/config.json` has `debug` and `heap_debug` set to 0.
