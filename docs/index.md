@@ -29,9 +29,9 @@ Tests either use a serial terminal to validate output, or use an oscilloscope to
 
 ![oscilloscope image](images/oscilloscope.JPG)
 
-The micro:bit is connected to a PC over USB (top of the micro:bit), which also exposes a serial port for a PC to connect to for serial output from the micro:bit. The scope has one probe lead connected to channel one, this probe lead connects to the micro:bit's ground pin (far right of the micro:bit), and samples pin P1 (yellow cable connected to the micro:bit). All tests use pin P1, so no reconfiguration of this setup will be required.
+The micro:bit is connected to a PC over USB (top of the micro:bit), which also exposes a serial port for a PC to connect to for serial output from the micro:bit. When connected, the micro:bit will mount the VM at `/media/lctes/MICROBIT` so that it can be programmed -- it can be accessed using the FileVault application or through the terminal. Further instructions on programming the micro:bit are available [here](https://makecode.microbit.org/device/usb).
 
-For information on how to use an oscilloscope we recommend this [sparkfun tutorial](https://learn.sparkfun.com/tutorials/how-to-use-an-oscilloscope/anatomy-of-an-o-scope#horizontal).
+The scope has one probe lead connected to channel one, this probe lead connects to the micro:bit's ground pin (far right of the micro:bit), and samples pin P1 (yellow cable connected to the micro:bit). All tests use pin P1, so no reconfiguration of this setup will be required. For information on how to use an oscilloscope we recommend this [sparkfun tutorial](https://learn.sparkfun.com/tutorials/how-to-use-an-oscilloscope/anatomy-of-an-o-scope#horizontal).
 
 We provide minicom installed on the virtual machine to observe serial results. From a terminal run `minicom -D /dev/ttyACM0 -b 115200` to communicate with the microbit. `-D` specifies the device, and `-b` specifies the baud rate. Pasting into minicom (or more widely, a terminal window) is done through using `ctrl + shift + v`. To quit minicom, press `ctrl + a` followed by `q`.
 
