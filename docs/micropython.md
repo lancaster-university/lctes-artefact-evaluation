@@ -11,7 +11,7 @@ This test is used to determine the overhead of a bytecode interpretter on the mi
 ### Steps to reproduce
 
 1. Navigate to the [micropython online editor](https://python.microbit.org/v/1)
-1. Copy the contents of `./tests/tight-loop/compiled/tight-loop-compiled-test.py` into the editor.
+1. Copy the contents of `./tests/micropython/tight-loop/compiled/tight-loop-compiled-test.py` into the editor.
 1. Click download and drag the outputted hex file onto the microbit device.
 4. Set oscilloscope to 10s per division.
 5. Measure the width of the high pulse.

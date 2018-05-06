@@ -59,7 +59,7 @@ This test determines the cost of our stack duplication approach with respect to 
 ### Steps to reproduce
 
 1. Ensure `./codal/config.json` has `debug` and `heap_debug` set to 0.
-1. Copy the contents of `tests/codal/gpio-base/ContextSwitchTest.cpp` to `codal/source/main.cpp`.
+1. Copy the contents of `tests/codal/context-switch-time/ContextSwitchTest.cpp` to `codal/source/main.cpp`.
 2. Compile the program by running `yt clean && yt build` in `./codal`.
 3. From `./codal` copy `build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex` to the microbit.
 4. Measure the positive width of the pulse using an oscilloscope, 1us per division.
@@ -143,7 +143,7 @@ This test determines the cost of our stack duplication approach with respect to 
 ### Steps to reproduce
 
 1. Ensure `./codal/config.json` has `debug` and `heap_debug` set to 0.
-1. Copy the contents of `tests/codal/gpio-base/ContextSwitchTest.cpp` to `codal/source/main.cpp`.
+1. Copy the contents of `tests/codal/context-switch-time/ContextSwitchTest.cpp` to `codal/source/main.cpp`.
 2. Compile the program by running `yt clean && yt build` in `./codal`.
 3. From `./codal` copy `build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex` to the microbit.
 4. Measure the positive width of the pulse using an oscilloscope.
@@ -228,7 +228,7 @@ This test counts from 0 to 100,000 using C++. After a full iteration, a GPIO is 
 ### Steps to reproduce
 
 1. Ensure `./codal/config.json` has `debug` and `heap_debug` set to 0.
-1. Copy the contents of `tests/codal/gpio-base/TightLoopTest.cpp` to `codal/source/main.cpp`.
+1. Copy the contents of `tests/codal/tight-loop/TightLoopTest.cpp` to `codal/source/main.cpp`.
 2. Compile the program by running `yt clean && yt build` in `./codal`.
 3. From `./codal` copy `build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex` to the microbit.
 4. Measure the positive width of the pulse using an oscilloscope, 100ms per division should be adequate.
@@ -292,7 +292,7 @@ This test is used to determine the default stack depth in codal, and thus it's c
 ### Steps to reproduce
 
 1. Set `debug` and `heap_debug` in `./codal/config.json` to 1.
-1. Copy the contents of `tests/codal/gpio-base/ContextSwitchTest.cpp` to `codal/source/main.cpp`.
+1. Copy the contents of `tests/codal/context-switch-time/ContextSwitchTest.cpp` to `codal/source/main.cpp`.
 2. Compile the program by running `yt clean && yt build` in `./codal`.
 3. From `./codal` copy `build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex` to the microbit.
 4. In minicom ([described here](index.md#test-procedure)) the output should read `sd: xxx bufferSize: xx`, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.

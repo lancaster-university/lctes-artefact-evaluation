@@ -19,7 +19,7 @@ This test is used to determine the time taken to toggle the GPIO. This time is t
 1. Ensure `./makecode/pxt-microbit/libs/core/pxt.json` has `debug` and `heap_debug` set to 0.
 2. Change to the `./makecode/pxt-microbit` directory.
 3. Run `pxt serve` and wait until a web browser opens with a local instance of MakeCode.
-4. Copy the contents of `root/tests/makecode/gpio-base/gpio-base-test.ts` into the editor window.
+4. Copy the contents of `root/tests/makecode/gpio-base/GPIO-test.ts` into the editor window.
 5. Hit download to download the compiled program as a hex file.
 6. Drag the file using the files GUI or use the `cp` command to copy the hex file to the micro:bit
 7. Use an oscilloscope set to 10us per division and measure the output.
@@ -52,7 +52,7 @@ This test determines the cost of our stack duplication approach with respect to 
 1. Ensure `./makecode/pxt-microbit/libs/core/pxt.json` has `debug` and `heap_debug` set to 0.
 2. Change to the `./makecode/pxt-microbit` directory.
 3. Run `pxt serve` and wait until a web browser opens with a local instance of MakeCode.
-4. Copy the contents of `root/tests/makecode/gpio-base/context-switch-test.ts` into the editor window.
+4. Copy the contents of `root/tests/makecode/context-switch-time/context-switch-test.ts` into the editor window.
 5. Hit download to download the compiled program as a hex file.
 6. Drag the file using the files GUI or use the `cp` command to copy the hex file to the micro:bit
 7. Use an oscilloscope set to 25us per division and measure the output.
@@ -102,7 +102,7 @@ This test counts from 0 to 100,000, using the higher level language in MakeCode,
 1. Ensure `./makecode/pxt-microbit/libs/core/pxt.json` has `debug` and `heap_debug` set to 0.
 2. Change to the `./makecode/pxt-microbit` directory.
 3. Run `pxt serve` and wait until a web browser opens with a local instance of MakeCode.
-4. Copy the contents of `root/tests/makecode/gpio-base/tight-loop-test.ts` into the editor window.
+4. Copy the contents of `root/tests/makecode/tight-loop/tight-loop-test.ts` into the editor window.
 5. Hit download to download the compiled program as a hex file.
 6. Drag the file using the files GUI or use the `cp` command to copy the hex file to the micro:bit
 7. Use an oscilloscope set to 25us per division and measure the output.
@@ -155,7 +155,7 @@ This test is used to determine the default stack depth in MakeCode, and thus it'
 1. Set `debug` and `heap_debug` in `./makecode/pxt-microbit/libs/core/pxt.json` to 1.
 2. Change to the `./makecode/pxt-microbit` directory.
 3. Run `pxt serve` and wait until a web browser opens with a local instance of MakeCode.
-4. Copy the contents of `root/tests/makecode/gpio-base/context-switch-test.ts` into the editor window.
+4. Copy the contents of `root/tests/makecode/context-switch-time/context-switch-test.ts` into the editor window.
 5. Hit download to download the compiled program as a hex file.
 6. Drag the file using the files GUI or use the `cp` command to copy the hex file to the micro:bit
 7. In minicom ([described here](index.md#test-procedure)) the output should read `sd: xxx bufferSize: xx`, the former shows the default stack depth in bytes for each fiber, the latter shows the amount of bytes allocated to contain the stack.
